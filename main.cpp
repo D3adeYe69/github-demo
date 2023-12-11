@@ -1,9 +1,9 @@
-#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <string.h>
-#include <ctype.h>
 #include <graphics.h>
+
 
 const char* pickWord(int level) {
     const char *Level1[] = { "apple", "banana", "orange", "grape", "lemon" };
@@ -11,6 +11,7 @@ const char* pickWord(int level) {
     const char *Level3[] = { "chameleon", "rhinoceros", "hippopotamus", "crocodile", "alligator" };
     const char *Level4[] = { "peregrine", "falcon", "hawk", "eagle", "osprey" };
     const char *Level5[] = { "sasquatch", "yeti", "chupacabra", "mothman", "nessie" };
+
     srand(time(NULL));
     switch (level) {
         case 1:
@@ -93,7 +94,9 @@ int playHangman(const char* randomWord, int len) {
         for (int i = 0; guessed[i] != '\0'; i++) {
             if (tolower(guessed[i]) == tolower(input)) {
                 letterAlreadyGuessed = 1;
-                printf("You've already guessed that letter. Try another.\n");
+                printf("\nYou've already guessed that letter. Try another.\n");
+                delay(1000);
+                system("cls");
                 break;
             }
         }
@@ -106,13 +109,19 @@ int playHangman(const char* randomWord, int len) {
             for (int i = 0; i < len; i++) {
                 if (tolower(randomWord[i]) == tolower(input)) {
                     letterInWord = 1;
+                    delay(200);
+                    system("cls");
+
                     break;
                 }
             }
 
             if (!letterInWord) {
                 mistakes++;
+                printf("\nInput %c is not in the word",input);
                 drawHangmanStage(mistakes);
+                delay(900);
+                system("cls");
             }
         }
         printf("Previous guesses: %s\n", guessed);

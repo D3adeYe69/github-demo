@@ -119,80 +119,11 @@ int playHangman(const char* randomWord, int len) {
     }
 
     printf("You've reached 7 mistakes. Game over. The word was \"%s\".\n", randomWord);
-    closegraph();
+
 
     return 1;
 }
 
-
-int hangmanMP(const char* randomWord1, int len1){
-     int mistakes = 0;
-    char guessed[26] = "";
-
-    while (mistakes < 7) {
-
-
-        for (int i = 0; i < len1; i++) {
-            int charGuessed = 0;
-            for (int j = 0; guessed[j] != '\0'; j++) {
-                if (tolower(guessed[j]) == tolower(randomWord1[i])) {
-                    printf("%c ", randomWord1[i]);
-                    charGuessed = 1;
-                    break;
-                }
-            }
-            if (!charGuessed) {
-                printf("_ ");
-            }
-        }
-        printf("\n");
-
-
-        if (strspn(randomWord1, guessed) == strlen(randomWord1)) {
-            printf("Congratulations! You guessed the word \"%s\"!\n", randomWord1);
-            return 0;
-        }
-
-        printf("Enter a letter: ");
-        char input;
-        scanf(" %c", &input);
-
-        int letterAlreadyGuessed = 0;
-        for (int i = 0; guessed[i] != '\0'; i++) {
-            if (tolower(guessed[i]) == tolower(input)) {
-                letterAlreadyGuessed = 1;
-                printf("You've already guessed that letter. Try another.\n");
-                break;
-            }
-        }
-
-        if (!letterAlreadyGuessed) {
-            guessed[strlen(guessed)] = tolower(input);
-            guessed[strlen(guessed) + 1] = '\0';
-
-            int letterInWord = 0;
-            for (int i = 0; i < len1; i++) {
-                if (tolower(randomWord1[i]) == tolower(input)) {
-                    letterInWord = 1;
-                    break;
-                }
-            }
-
-            if (!letterInWord) {
-                mistakes++;
-                drawHangmanStage(mistakes);
-            }
-
-        }
-
-        printf("Previous guesses: %s\n", guessed);
-    }
-
-    printf("You've reached 7 mistakes. Game over. The word was \"%s\".\n", randomWord1);
-    closegraph();
-
-    return 1;
-}
 
 int main() {
     char input;
@@ -208,9 +139,11 @@ int main() {
            char multiplayerWord[50];
         printf("Player 1, enter the word for Player 2 to guess: ");
         scanf("%s", multiplayerWord);
+        system("cls");
+        delay(1000);
 
         int len1 = strlen(multiplayerWord);
-        return hangmanMP(multiplayerWord, len1);
+        return playHangman(multiplayerWord, len1);
         } else if (tolower(input) == 's') {
             int level = 1;
 
@@ -222,13 +155,13 @@ int main() {
                 if (playHangman(randomWord, len) == 0) {
                     level++;
                     delay(2000);
-
                     closegraph();
                     system("cls");
                     initgraph(&gd, &gm, " ");
                 } else {
                     level = 1;
-                    break;
+                    system("cls");
+                    cleardevice();
                 }
             }
 

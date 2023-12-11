@@ -11,8 +11,7 @@ const char* pickWord(int level) {
     const char *Level3[] = { "chameleon", "rhinoceros", "hippopotamus", "crocodile", "alligator" };
     const char *Level4[] = { "peregrine", "falcon", "hawk", "eagle", "osprey" };
     const char *Level5[] = { "sasquatch", "yeti", "chupacabra", "mothman", "nessie" };
-    unsigned seed = (unsigned int)(GetCurrentProcessId());
-    srand(seed));
+    srand(time(NULL));
     switch (level) {
         case 1:
             return Level1[rand() % 5];

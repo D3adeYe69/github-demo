@@ -32,7 +32,7 @@ const char* pickWord(int level) {
 void drawHangmanStage(int mistakes) {
 
 
-        if (mistakes >= 1) {
+        if (mistake >= 1) {
             line(50, 20, 50, 200);
             line(50, 20, 100, 20);
             line(100, 20, 100, 55);
